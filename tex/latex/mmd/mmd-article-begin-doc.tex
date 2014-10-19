@@ -1,0 +1,45 @@
+%
+%	For setup that must follow metadata included in the document
+%
+
+\title{\mytitle}
+\graphicspath{{../Graphics/}}
+\interfootnotelinepenalty=10000
+\begin{document}
+
+\thispagestyle{empty}
+{ \phantom{.} \vspace*{\fill}}
+\begin{center}
+	{\Large\scshape \mytitle:}\\
+        {\large\scshape \mysubtitle}
+	
+	Thomas R. Cook
+	
+	{\mydate}
+\end{center}
+\vspace*{\fill}
+\clearpage
+\thispagestyle{empty}
+{ \phantom{.} \vspace*{\fill}}
+\begin{center}
+{\Large Abstract}
+\end{center}
+\label{abstract}
+\singlespacing
+\myabstract
+
+
+
+
+
+
+\vspace*{\fill}
+\clearpage
+\pagestyle{empty}
+
+\tableofcontents
+
+\cleardoublepage
+
+\thispagestyle{fancy}
+\pagestyle{fancy}

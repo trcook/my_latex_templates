@@ -1,0 +1,108 @@
+% $Id: sfgame.sty,v 1.9 2005/06/27 22:19:15 dag Exp dag $
+% License: This program is free software; you can redistribute it 
+% and/or modify it under the terms of the GNU General Public License 
+% as published by the Free Software Foundation; either version 2 of 
+% the License, or (at your option) any later version. 
+% [http://www.gnu.org/licenses/gpl.html] 
+% 
+% This program is distributed in the hope that it will be useful, but 
+% WITHOUT ANY WARRANTY; without even the implied warranty of 
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+% General Public License for more details.
+%
+% Daniel A. Graham <daniel.graham@duke.edu>
+%
+% Macros for 2 and 3 player games in strategic form and for a 
+% similar, bordered table with single entries in each cell.
+% Each handles an arbitrary number of rows and columns and with 
+% payoffs, for the two-player game, in the lower-left and 
+% upper-right corners of each cell.  Based on tabular and tabularx 
+% environments so it can enclosed in alignment (e.g.  centering) 
+% and/or float (e.g.  table) environments. 
+%
+% The sfgame (2 player) and Sfgame (3 player) environments have 4 
+% parameters:
+% #1: optional tabular vertical alignment position argument:
+%       t (top line of table aligned with baseline of external text)
+%       b (bottom line of table aligned with external text)
+%       none (table centered vertically on external text)
+% #2: (length spec) - the width of the first (row titles) column
+% #3: the number of actions for the column player;
+% #4: (length spec) - the width of each of the action columns;
+%
+% Eg usage: Prisoner's dilemma
+% \begin{sfgame}{.6in}{2}{.8in}
+%     \players{Row}{Col}   \col{Coop}   \col{Fink}
+%     \row{Coop}           \pay{2}{2}   \pay{0}{3}
+%     \row{Fink}           \pay{3}{0}   \pay{1}{1}
+% \end{sfgame}
+\RequirePackage{tabularx}
+
+\newcount\cnum
+\newlength{\cwidth}
+\newlength{\rwidth}
+\newlength{\rheight}
+\newcommand{\col}[1]{& \multicolumn{1}{c}{#1}}
+\newcommand{\row}[1]{\tabularnewline \cline{2-\number\cnum} #1}
+\newcommand{\pay}[2]{& \cell{\cwidth}{3.5ex}{#1}{#2}}
+\newcommand{\players}[2]{\multicolumn{1}{c}{\cell{\rwidth}{2.5ex}{#1}{#2}}}
+
+\newcommand{\rowcol}[1]{\multicolumn{1}{c}{#1}}
+\newcommand{\val}[1]{& #1}
+
+\newcolumntype{C}{>{\rule[-1ex]{0in}{\rheight}\centering\arraybackslash}X}
+
+\newcommand{\cell}[4]{
+\setlength{\rheight}{#2}
+\begin{tabularx}{#1}{CC}
+    {} & #4 \\
+    #3 & {}
+\end{tabularx}}
+
+\newenvironment{sfgame}[4][]{
+\setlength{\tabcolsep}{0in}
+\setlength{\rwidth}{#2}
+\cnum = #3
+\setlength{\cwidth}{#4}
+\advance\cnum by 1
+\begin{tabular}[#1]{c*{#3}{|c}|}}
+{\tabularnewline\cline{2-\number\cnum}\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% setup for Sfgame with 3 players and thus 3 payoffs in each cell
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Cell}[5]{
+\setlength{\rheight}{#2}
+\begin{tabularx}{#1}{CCC}
+    {} & {} & #5 \\
+    {} & #4 & {} \\
+    #3 & {} & {}
+\end{tabularx}}
+
+\newcommand{\Pay}[3]{& \Cell{\cwidth}{4ex}{#1}{#2}{#3}}
+\newcommand{\Players}[3]{\multicolumn{1}{c}{\Cell{\rwidth}{3ex}{#1}{#2}{#3}}} 
+
+\newenvironment{Sfgame}[4][]{
+\let\pay=\Pay
+\let\players=\Players
+\setlength{\tabcolsep}{0in}
+\setlength{\rwidth}{#2}
+\cnum = #3
+\setlength{\cwidth}{#4}
+\advance\cnum by 1
+\begin{tabular}[#1]{c*{#3}{|c}|}}
+{\tabularnewline\cline{2-\number\cnum}\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% a bordered table like sfgame but with only a single entry in each 
+% cell and parameters:
+% #1 number of body columns
+% #2 width of the entire table
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{btabx}[2]{
+\setlength{\tabcolsep}{0in}
+\cnum = #1
+\advance\cnum by 1
+\begin{tabularx}[#2]{c*{#1}{|C}|}}
+{\tabularnewline\cline{2-\number\cnum}\end{tabular}}
+

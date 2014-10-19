@@ -1,0 +1,43 @@
+\ProvidesPackage{mythesis}
+\usepackage{quotes} %enables some quote environment. I'm not sure if I use it but don't touch it just yet... 2010-06-08(20:40)
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\RequirePackage{fancyhdr} 
+\pagestyle{fancy}
+\usepackage{verbatim} %this package enables comment environment and verbatim environment. Allows multiline comments to be used w/o % sign at beginning of each line, so long as those comments occur within the comment environment. Usage = \begin{comment} ...\%end{comment}. Verbatim allows raw data to be input into file without concern about symbols or special characters. environment usage same as for comment.
+\usepackage{setspace}%enables setting the spacing using \singlespacing or \doublespacing
+\doublespacing %doublespaces document, relies on setspace
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{url}%enables printing of urls in bibliography -- i think its for line breaking
+\usepackage{booktabs}%This package provide some additional commands to enhance the quality of tables in LaTeX. Guidelines are given as to what constitutes a good table in this context.
+\usepackage{ctable} %use for some tables, esp appendix a and for tables in analysis. Is needed for footnotes in tables.
+\usepackage{afterpage}%use this to clear page after floats usage: \afterpage{\clearpage}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{chicago}
+\usepackage{tocvsec2}%for table of contents -- sets section numbering
+\usepackage[small,compact]{titlesec}
+\usepackage{appendix}
+\usepackage{float}
+%\title{Forty Rods to the Hogs Head: An Examination of the Opposition to Changes in Standards of Weight and Measure in the US}
+\title{}
+\newcommand{\mytitle}{to fix do \textbackslash renewcommand\{\textbackslash mytitle\}\{title\}}
+\newcommand{\mysubtitle}{}
+\author{Thomas R Cook}
+\newcommand{\myauthor}{Thomas R Cook}
+%\date{}                                           % Activate to display a given date or no date
+
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#2}%
+    \setlength{\rightmargin}{#1}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+\setcounter{secnumdepth}{-1}

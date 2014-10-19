@@ -1,0 +1,214 @@
+\ProvidesPackage{mybookbiblatex}
+\usepackage{etex}
+\reserveinserts{20}
+\usepackage{dcolumn} % package for aligning at decimal point
+\usepackage{quotes} %enables some quote environment. I'm not sure if I use it but don't touch it just yet... 2010-06-08(20:40)
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+
+
+%--------------------------------------------------------------------------
+%                      bib latex customizations
+%                     BEGIN:
+%--------------------------------------------------------------------------
+
+\usepackage[natbib=true,style=authoryear-icomp,autocite=plain]{biblatex}
+
+%the following will supress the word in: in article citations
+\renewbibmacro{in:}{%
+  \ifentrytype{article}{}{%
+  \printtext{\bibstring{in}\intitlepunct}}}
+  
+
+% this sets up the footnote year citation:
+\renewcommand{\citep}{\footcite[see][]}
+
+\renewcommand{\citet}[2][]{\citeauthor{#2}\footyearcite[#1]{#2}}
+\DeclareCiteCommand{\footyearcite}[\mkbibfootnote]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}}
+  {}
+  {\usebibmacro{cite:postnote}}
+
+%-------------------------------------------------------------------------------
+%                            END
+%                            biblatex customization
+%-------------------------------------------------------------------------------
+
+
+
+
+\usepackage{verbatim} %this package enables comment environment and verbatim environment. Allows multiline comments to be used w/o % sign at beginning of each line, so long as those comments occur within the comment environment. Usage = \begin{comment} ...\%end{comment}. Verbatim allows raw data to be input into file without concern about symbols or special characters. environment usage same as for comment.
+\usepackage{setspace}%enables setting the spacing using \singlespacing or \doublespacing
+\doublespacing %doublespaces document, relies on setspace
+
+
+
+
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{url}%enables printing of urls in bibliography -- i think its for line breaking
+\usepackage{booktabs}%This package provide some additional commands to enhance the quality of tables in LaTeX. Guidelines are given as to what constitutes a good table in this context.
+\usepackage{ctable} %use for some tables, esp appendix a and for tables in analysis. Is needed for footnotes in tables.
+\usepackage{afterpage}%use this to clear page after floats usage: \afterpage{\clearpage}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[reqno]{amsmath}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+%\usepackage{tocvsec2}%for table of contents -- sets section numbering
+%\usepackage{natbib}
+\usepackage[small,compact]{titlesec}
+%\usepackage{float}
+
+%-------------------------------------------------------------------------------
+%                                 header
+%                                 customization
+%                                 begin:
+%-------------------------------------------------------------------------------
+
+\title{}
+\newcommand{\mytitle}{to fix do \textbackslash renewcommand\{\textbackslash mytitle\}\{title\}}
+\newcommand{\mysubtitle}{}
+\author{Thomas R Cook}
+\newcommand{\myauthor}{Thomas R Cook}
+%\date{}                                           % Activate to display a given date or no date
+
+
+\RequirePackage{fancyhdr} % used to customize and style page headers
+
+\renewcommand{\sectionmark}[1]{% 
+\markboth{#1}{}
+}
+\fancyhf{}
+%\fancyhead[RO,LE]{\small\leftmark}
+\renewcommand{\myauthor}{Thomas Cook}
+\doublespacing
+\fancyhead[RO,RE]{\small \nouppercase{\leftmark}\ -\  \thepage}
+\fancyhead[LE,LO]{\small \myauthor}
+\fancyfoot[RO,RE]{\small\mytitle}
+%\fancyhead[C]{\small\mytitle}
+\pagestyle{fancy} % places line across top etc
+%-------------------------------------------------------------------------------
+%                                end
+%                                header
+%                                 customization
+%-------------------------------------------------------------------------------
+
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#2}%
+    \setlength{\rightmargin}{#1}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+
+
+
+
+\setcounter{secnumdepth}{3}
+\usepackage{sectsty}
+\usepackage{wrapfig}
+\usepackage [title,titletoc]{appendix}
+\usepackage{sfgame}
+\usepackage{amsmath, amsthm, amssymb}
+%\usepackage[abbr]{harvard}
+%\subsectionfont{\large\mdseries\itshape}
+
+%%%%
+\usepackage[numbib,notlof,notlot,nottoc]{tocbibind}
+%\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{arrows}
+
+
+
+%\setlength\headwidth{6in}%changes vertical margins
+%\geometry{totalwidth=6in,includeheadfoot}
+%\renewcommand{\bibsection}{\subsection{References}}
+%\usepackage{float}
+\usepackage{floatrow}
+\floatsetup[figure]{heightadjust=all,valign=c,style=Ruled}
+\floatsetup[table]{heightadjust=all,valign=c,style=Ruled}
+
+\setlength\headwidth{6.5in}%changes vertical margins
+ \geometry{totalwidth=6.5in,totalheight={10in},includeheadfoot}
+\usepackage{layout}
+\usepackage{epstopdf}
+\usepackage{varioref}
+\usepackage{lscape}
+\graphicspath{{Graphics/}}
+%\usepackage{natbib}
+%\bibliographystyle{apsr}
+%\setcitestyle{yysep={;},aysep={},notesep={, }}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\hypersetup{% sets up hyperlink stuff
+pdfdisplaydoctitle=true,
+pdfpagelayout={TwoColumnRight},
+%pdfpagelabels=false,
+   colorlinks=false,
+    pdfborder={0 0 0},
+pdfinfo={
+Author={Thomas Cook}}}
+
+
+
+%-------------------------------------------------------------------------------
+%                                 theorem and
+%                                  hypothesis
+%                                 customization
+%                                  begin
+%-------------------------------------------------------------------------------
+
+% sets up hypothesis argument \begin{hypothesis}[hypothesis name]. set a label and refer to it using \autoref
+\usepackage{thmtools}
+\declaretheoremstyle[
+  spaceabove=6pt, spacebelow=6pt,
+  headfont=\normalfont\bfseries,
+  notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+  postheadspace=1em,
+headpunct={:},
+]{mystyle}
+
+\declaretheorem[style=mystyle,name=H,refname={H,hypotheses},
+  Refname={H,Hypotheses}]{hypothesis}
+\def\citeapos#1{\citeauthor{#1}'s (\citeyear{#1})}
+
+
+
+
+%\renewcommand\thesubhypothesis{\thehypothesis\alph{subhypothesis}}
+
+\declaretheorem[style=mystyle,name=P,refname={P, prediction},
+  Refname={Prediction}]{prediction}
+
+
+
+%-------------------------------------------------------------------------------
+%                                  end
+%                                 theorem and
+%                                  hypothesis
+%                                 customization
+%-------------------------------------------------------------------------------
+
+
+% I don't know what this does
+\usepackage{mathtools}  
+\mathtoolsset{showonlyrefs}  
+
+%\setcounter{secnumdepth}{3} 
+% \renewcommand\thesection{\arabic{section}}
+% \renewcommand\thesubsection{\arabic{section}.\alph{subsection}}
+
+
+
